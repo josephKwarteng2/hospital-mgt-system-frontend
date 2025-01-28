@@ -10,3 +10,5 @@ export interface LoginResponse {
   password: string;
   token: string;
 }
+
+export type ToastVariant = "default" | "destructive";
