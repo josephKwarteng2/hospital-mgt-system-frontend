@@ -42,6 +42,14 @@ export class APIClient {
       throw new APIError(response.status, errorMessage, errorData);
     }
 
+    if (response.status === 201) {
+      try {
+        return (await response.json()) as T;
+      } catch {
+        return {} as T;
+      }
+    }
+
     return response.json();
   }
 

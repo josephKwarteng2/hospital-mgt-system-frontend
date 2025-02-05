@@ -10,6 +10,7 @@ export const TOAST_MSGS = {
   PASSWORD_MISMATCH: "The passwords you entered do not match.",
   OTP_SENT: "A one-time password has been sent to your email address.",
   OTP_VERIFIED: "Your one-time password has been verified.",
+  INVITATION_SENT: "An invitation has been sent to the email address.",
 };
 
 export const VALIDATION_ERRORS = {
