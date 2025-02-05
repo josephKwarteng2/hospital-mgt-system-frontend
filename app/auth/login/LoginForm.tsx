@@ -18,10 +18,11 @@ import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/ui/spinner";
 import { loginSchema } from "@/app/lib/api/schemas";
 import api, { APIError, Role } from "@/app/lib/api";
-import { TOAST_MSGS } from "@/app/constants/constants";
+import { handleRedirection, TOAST_MSGS } from "@/app/constants/constants";
 import { EmailIcon, PasswordIcon } from "@/components/icons/icons";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
+import { useCallback } from "react";
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
@@ -52,19 +53,7 @@ export default function Login() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.user.role);
 
-      switch (data.user.role) {
-        case Role.Admin:
-          router.push("/admin/dashboard");
-          break;
-        case Role.Doctor:
-          router.push("/doctor/dashboard");
-          break;
-        case Role.Patient:
-          router.push("/patient/dashboard");
-          break;
-        default:
-          router.push("/");
-      }
+      handleRedirection(data.user.role, router);
 
       toast({
         title: "Success",
@@ -81,9 +70,12 @@ export default function Login() {
     },
   });
 
-  const onSubmit = (data: LoginFormValues) => {
-    mutate(data);
-  };
+  const onSubmit = useCallback(
+    (data: LoginFormValues) => {
+      mutate(data);
+    },
+    [mutate]
+  );
 
   return (
     <div className="mt-10">

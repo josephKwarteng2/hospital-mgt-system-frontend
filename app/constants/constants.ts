@@ -1,3 +1,6 @@
+import { Role } from "../lib/api";
+import { useRouter } from "next/navigation";
+
 export const TOAST_MSGS = {
   LOGIN_SUCCESS: "You have successfully logged in.",
   SIGNUP_SUCCESS: "Your account has been created successfully.",
@@ -37,3 +40,15 @@ export const ERROR_MESSAGES = {
   [HTTP_STATUS.INTERNAL_SERVER_ERROR]: "Internal Server Error",
   DEFAULT: "An error occurred",
 } as const;
+
+export const handleRedirection = (
+  role: Role,
+  router: ReturnType<typeof useRouter>
+) => {
+  const rolePaths: Record<Role, string> = {
+    [Role.Admin]: "/admin/dashboard",
+    [Role.Doctor]: "/doctor/dashboard",
+    [Role.Patient]: "/patient/dashboard",
+  };
+  router.push(rolePaths[role] || "/");
+};
