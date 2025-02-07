@@ -85,34 +85,46 @@ export default function Login() {
             control={form.control}
             name="email"
             render={({ field }) => {
-              const isTouched = form.formState.touchedFields.email;
               const hasError = form.formState.errors.email;
+              const isFilled = form.getValues(field.name);
 
               return (
-                <FormItem className="relative space-y-0.1">
-                  <FormLabel>Email Address</FormLabel>
+                <FormItem className="relative mt-6">
                   <div className="relative group">
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="Enter your email address"
-                        className={`pl-10 bg-gray-200 transition-all duration-300 focus:ring-2 focus:ring-[#018969] focus:border-[#018969] focus:outline-none ${
-                          hasError
-                            ? `border-red-500 placeholder-red-500 focus:ring-red-500 ${
-                                isTouched ? "animate-shake" : ""
-                              }`
-                            : "focus:ring-[#018969] focus:border-[#018969]"
-                        }`}
+                        className={`
+                          pl-10
+                          ${hasError ? "border-red-500" : "border-[#D0D1D0]"}
+                          peer  
+                        `}
                         onBlur={() => form.trigger("email")}
                       />
                     </FormControl>
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <FormLabel
+                      className={`
+                        absolute left-10 text-[#464646] 
+                        transition-all duration-300 
+                        transform -translate-y-1/2
+                        pointer-events-none
+                        ${hasError ? "text-red-500" : "text-[#464646]"}
+                        ${
+                          isFilled || form.formState.touchedFields.email
+                            ? "top-0 text-sm bg-white px-1"
+                            : "top-1/2 text-base"
+                        }  
+                        peer-focus:top-0 peer-focus:text-sm peer-focus:bg-gray-200 peer-focus:px-1
+                      `}
+                    >
+                      Email Address
+                    </FormLabel>
+                    <div className="absolute inset-y-0 left-3 flex items-center">
                       <EmailIcon
-                        className={`transition-colors duration-300 ${
-                          hasError
-                            ? "stroke-red-500"
-                            : "stroke-[#5B5F5D] group-focus-within:stroke-[#018969]"
-                        }`}
+                        className={`
+                          transition-colors duration-300
+                          ${hasError ? "stroke-red-500" : "stroke-[#0ef]"}
+                        `}
                       />
                     </div>
                   </div>
@@ -128,35 +140,47 @@ export default function Login() {
             control={form.control}
             name="password"
             render={({ field }) => {
-              const isTouched = form.formState.touchedFields.password;
               const hasError = form.formState.errors.password;
+              const isFilled = form.getValues(field.name);
 
               return (
-                <FormItem className="relative space-y-0.1">
-                  <FormLabel>Password</FormLabel>
+                <FormItem className="relative mt-6">
                   <div className="relative group">
                     <FormControl>
                       <Input
                         {...field}
                         type="password"
-                        placeholder="Enter your password"
-                        className={`pl-10 bg-gray-200 transition-all duration-300 focus:ring-2 focus:ring-[#018969] focus:border-[#018969] focus:outline-none ${
-                          hasError
-                            ? `border-red-500 placeholder-red-500 focus:ring-red-500 ${
-                                isTouched ? "animate-shake" : ""
-                              }`
-                            : "focus:ring-[#018969] focus:border-[#018969]"
-                        }`}
+                        className={`
+                          pl-10 
+                          ${hasError ? "border-red-500" : "border-[#464646]"}
+                          peer
+                        `}
                         onBlur={() => form.trigger("password")}
                       />
                     </FormControl>
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <FormLabel
+                      className={`
+                        absolute left-10 text-[#464646]
+                        transition-all duration-300 
+                        transform -translate-y-1/2
+                        pointer-events-none
+                        ${hasError ? "text-red-500" : "text-[#464646]"}
+                        ${
+                          isFilled || form.formState.touchedFields.password
+                            ? "top-0 text-sm bg-white px-1"
+                            : "top-1/2 text-base"
+                        }
+                        peer-focus:top-0 peer-focus:text-sm peer-focus:bg-gray-200 peer-focus:px-1
+                      `}
+                    >
+                      Password
+                    </FormLabel>
+                    <div className="absolute inset-y-0 left-3 flex items-center">
                       <PasswordIcon
-                        className={`transition-colors duration-300 ${
-                          hasError
-                            ? "stroke-red-500"
-                            : "stroke-[#5B5F5D] group-focus-within:stroke-[#018969]"
-                        }`}
+                        className={`
+                          transition-colors duration-300
+                          ${hasError ? "stroke-red-500" : "stroke-[#464646]"}
+                        `}
                       />
                     </div>
                   </div>
